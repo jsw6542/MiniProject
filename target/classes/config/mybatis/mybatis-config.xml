@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE configuration PUBLIC "-//mybatis.org//DTD Config 3.0//EN" "HTTP://mybatis.org/dtd/mybatis-3-config.dtd">
+
+<configuration>
+	<settings>
+		<setting name="cacheEnabled" value="false" />
+		<setting name="useGeneratedKeys" value="true" />
+		<setting name="defaultExecutorType" value="REUSE" />
+	</settings>
+	
+	<typeAliases>		
+		 <typeAlias type="vo.GameVO" alias="game"/>
+		 <typeAlias type="vo.GameVOtwo" alias="gametwo"/>
+		 <typeAlias type="vo.ReviewVO" alias="review"/>
+		 <typeAlias type="vo.UserVO" alias="user"/>
+ 		 <typeAlias type="vo.GameboardVO" alias="gameboard"/>
+		 <typeAlias type="vo.GameBoardPagingVO" alias="gameboardpaging"/>
+		
+	</typeAliases>
+	
+	<mappers>
+		<mapper resource="config/mybatis/mapper/gameTest.xml" />
+		<mapper resource="config/mybatis/mapper/review.xml" />
+		<mapper resource="config/mybatis/mapper/user.xml" />
+		<mapper resource="config/mybatis/mapper/gameboard.xml" />
+	</mappers>
+</configuration>

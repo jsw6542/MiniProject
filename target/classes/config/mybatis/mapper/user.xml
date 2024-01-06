@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="u">
+
+	<!-- 회원가입 -->
+	<insert id = "user_insert" parameterType="user">
+		insert into USER_INFO values(
+				SEQ_USER_INFO.nextVal,
+				#{user_id},
+				#{user_pwd},
+				sysdate,
+				#{user_nickname},
+				'no_file.jpg',
+				#{user_email},
+				#{user_name},
+				#{user_ip},
+				#{user_email2} <!-- 임시로 넣음 -->
+		)
+	</insert>
+	
+	<!-- 로그인 -->
+	<select id = "user_login" resultType="user" parameterType="user">
+		select * from USER_INFO where user_id = #{user_id} and user_pwd = #{user_pwd}
+	</select>
+	
+	<!-- 아이디 찾기 -->
+	<select id = "select_id" resultType="user" parameterType="user">
+		select * from USER_INFO where user_name=#{user_name} and user_email=#{user_email} and user_email2=#{user_email2} <!-- 아이디 찾기 이름 + 주민번호 or 이름 + 이메일 -->
+	</select>
+	
+	<!-- 비밀번호 찾기 -->
+	<select id = "select_pw" resultType="user" parameterType="user">
+		select * from USER_INFO where user_name=#{user_name} and user_id=#{user_id} and user_email=#{user_email} and user_email2=#{user_email2} <!-- 비밀번호 찾기 이름 + 아이디 + 주민번호 or 이메일 -->
+	</select>
+	
+	<!-- 회원 정보 수정 -->
+	<update id = "user_modify" parameterType="user">  
+		update USER_INFO set user_nickname=#{user_nickname},
+							 user_pwd=#{user_pwd}
+		where user_idx=#{user_idx}
+	</update> 
+	
+	<!-- 비밀번호 찾기 후 수정 -->
+	<!-- <update id="user_modifypw" parameterType="user">
+		update USER_INFO set user_pwd=#{user_pwd} 
+		where user_name=#{user_name} and user_id=#{user_id} and user_email=#{user_email}
+	</update> -->
+	
+	<!-- 프로필 사진 수정 -->
+	<update id = "user_modify_image" parameterType="user">
+		update USER_INFO set user_image_path=#{user_image_path} where user_idx=#{user_idx}
+	</update>
+	
+	<!-- 회원 탈퇴 -->
+	<delete id = "delete_id" parameterType="user">
+		delete from USER_INFO where user_idx=#{user_idx} and user_pwd=#{user_pwd}
+	</delete>
+	
+	<!-- 아이디 중복검사 -->
+	<select id = "check_id" resultType="int" parameterType="user">
+		select count(*) from USER_INFO where user_id = #{user_id}
+	</select>
+	
+	<!-- 닉네임 중복검사 -->
+	<select id = "check_nickname" resultType="int" parameterType="user">
+		select count(*) from USER_INFO where user_nickname = #{user_nickname}
+	</select>
+</mapper>
+
+
+
+
+
+
+
+
+
+
+
+
